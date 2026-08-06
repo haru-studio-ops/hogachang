@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ibmPlexMono, notoSerifKR } from "./fonts";
 import Sidebar from "@/components/ui/Sidebar";
+import BackupBanner from "@/components/ui/BackupBanner";
 import { CURRICULUM } from "@/lib/curriculum";
 import { getLessonsForLevel } from "@/lib/content";
 import "./globals.css";
@@ -49,6 +50,7 @@ export default function RootLayout({
         <div className="flex min-h-dvh">
           <Sidebar levelTree={levelTree} />
           <main className="min-w-0 flex-1 px-4 pt-16 pb-12 xl:pt-8">
+            <BackupBanner />
             {children}
           </main>
         </div>

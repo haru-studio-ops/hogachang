@@ -10,6 +10,7 @@ const NAV_ITEMS = [
   { href: "/review", label: "오답노트" },
   { href: "/glossary", label: "용어사전" },
   { href: "/tools", label: "계산기" },
+  { href: "/settings", label: "설정" },
 ] as const;
 
 export type NavLevel = {
