@@ -7,6 +7,7 @@ import {
   completeLesson,
   updateLessonRecord,
 } from "@/lib/progress";
+import { applyDailyResult, applyExamResult } from "@/lib/exam";
 import {
   clearStore,
   createDefaultStore,
@@ -31,6 +32,14 @@ type ProgressState = {
   setPracticeDone: (lessonId: string, done: boolean) => void;
   /** 조건 충족 시 완료 처리. 성공 여부를 돌려준다 */
   complete: (lessonId: string, prereqsMet: boolean) => boolean;
+  /** 데일리 테스트 일괄 채점 결과 반영 (dailyTests·questionStats·srs·streak) */
+  applyDaily: (input: { dateKey: string; questionIds: string[]; corrects: boolean[] }) => void;
+  /** 졸업시험 일괄 채점 결과 반영 */
+  applyExam: (input: {
+    level: number;
+    questions: { id: string; lessonId: string }[];
+    corrects: boolean[];
+  }) => void;
   /** 백업 복원 등 전체 교체 */
   replaceStore: (store: ProgressStore) => void;
   /** 전체 삭제. 호출부가 반드시 사용자 확인을 거친다 */
@@ -76,6 +85,8 @@ export const useProgress = create<ProgressState>((set, get) => {
       commit(next);
       return true;
     },
+    applyDaily: (input) => withStore((s) => applyDailyResult(s, input)),
+    applyExam: (input) => withStore((s) => applyExamResult(s, input)),
     replaceStore: (store) => commit(store),
     reset: () => {
       clearStore();

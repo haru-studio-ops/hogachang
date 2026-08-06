@@ -27,6 +27,19 @@ export type NumericQuizItem = {
 /** 레슨 퀴즈 문항 (프론트매터 `quiz` 항목) */
 export type QuizItem = ChoiceQuizItem | NumericQuizItem;
 
+/** 문제은행 항목 — 레슨 프론트매터 quiz에서 빌드 시점에 수집 (별도 문항 파일 없음) */
+export type BankQuestion = {
+  /** `${lessonId}#q${n}` (1-based) */
+  id: string;
+  lessonId: string;
+  level: number;
+  module: string;
+  difficulty: number;
+  tags: string[];
+  examOnly: boolean;
+  item: QuizItem;
+};
+
 /** 레슨 MDX 프론트매터 (PROJECT_SPEC 4.2 고정 스키마) */
 export type LessonFrontmatter = {
   id: string;

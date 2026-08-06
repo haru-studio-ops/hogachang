@@ -6,6 +6,12 @@ export function localDateKey(date: Date = new Date()): string {
   return `${y}-${m}-${d}`;
 }
 
+/** 'YYYY-MM-DD' 키의 하루 전 키 (스트릭 연속 판정용) */
+export function prevDateKey(key: string): string {
+  const [y, m, d] = key.split("-").map(Number);
+  return localDateKey(new Date(y, m - 1, d - 1));
+}
+
 /** 오늘(로컬)의 마지막 순간. dueAt <= 이 값이면 "오늘 복습" */
 export function endOfToday(now: Date = new Date()): Date {
   const d = new Date(now);
