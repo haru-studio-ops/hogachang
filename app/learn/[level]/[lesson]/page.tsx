@@ -11,6 +11,7 @@ import {
 } from "@/lib/content";
 import { mdxComponents } from "@/components/mdx/mdxComponents";
 import Checkpoint from "@/components/mdx/Checkpoint";
+import LessonPanel from "@/components/lesson/LessonPanel";
 
 type Props = {
   params: Promise<{ level: string; lesson: string }>;
@@ -43,7 +44,7 @@ export default async function LessonPage({ params }: Props) {
 
   const headings = extractHeadings(data.content);
   const { prev, next } = getAdjacentLessons(levelNum, data.id);
-  const quizCount = data.quiz.filter((q) => !q.examOnly).length;
+  const lessonQuiz = data.quiz.filter((q) => !q.examOnly);
 
   return (
     <div className="mx-auto flex w-full max-w-[984px] justify-center gap-6">
@@ -92,10 +93,12 @@ export default async function LessonPage({ params }: Props) {
 
         {data.checkpoint && <Checkpoint items={[data.checkpoint]} />}
 
-        <section className="mt-6 rounded-md border border-dashed border-line p-4 text-sm text-muted">
-          이 레슨에는 확인 퀴즈 {quizCount}문항이 준비되어 있다. 퀴즈 풀이와 완료
-          처리는 진도 시스템(M2)과 함께 열린다.
-        </section>
+        <LessonPanel
+          lessonId={data.id}
+          level={levelNum}
+          prerequisites={data.prerequisites}
+          quiz={lessonQuiz}
+        />
 
         <nav className="mt-10 flex gap-3 border-t border-line pt-6 text-sm">
           {prev && (
