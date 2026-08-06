@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --ink: #101418;
+    --paper: #E9EBEC;
+    --surface: #FFFFFF;
+    --line: #C9CDD1;
+    --muted: #6E767D;
+    --rise: #C8323C;
+    --fall: #1F5AA8;
+    --brass: #9A7B3F;
+  }
+
+  .dark {
+    --ink: #E9EBEC;
+    --paper: #101418;
+    --surface: #1A1E23;
+    --line: #2E3238;
+    --muted: #8E969D;
+    --rise: #D94550;
+    --fall: #3A7BD5;
+    --brass: #B08F4F;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not(.light) {
+      --ink: #E9EBEC;
+      --paper: #101418;
+      --surface: #1A1E23;
+      --line: #2E3238;
+      --muted: #8E969D;
+      --rise: #D94550;
+      --fall: #3A7BD5;
+      --brass: #B08F4F;
+    }
+  }
+}
+
+@theme {
+  --color-ink: var(--ink);
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-line: var(--line);
+  --color-muted: var(--muted);
+  --color-rise: var(--rise);
+  --color-fall: var(--fall);
+  --color-brass: var(--brass);
+}
+
+@layer base {
+  body {
+    color: var(--ink);
+    background-color: var(--paper);
+    font-variant-numeric: tabular-nums;
+  }
+}

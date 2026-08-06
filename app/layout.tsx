@@ -1,0 +1,50 @@
+import type { Metadata } from "next";
+import { ibmPlexMono, notoSerifKR } from "./fonts";
+import Sidebar from "@/components/ui/Sidebar";
+import "./globals.css";
+
+export const metadata: Metadata = {
+  title: "호가창 — 트레이딩 학습",
+  description:
+    "완전 초보부터 스스로 판단하는 트레이더가 되기까지, 순서대로 쌓아 올리는 학습 사이트",
+  openGraph: {
+    title: "호가창 — 트레이딩 학습",
+    description:
+      "완전 초보부터 스스로 판단하는 트레이더가 되기까지, 순서대로 쌓아 올리는 학습 사이트",
+    type: "website",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="ko" suppressHydrationWarning>
+      <head>
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
+        />
+      </head>
+      <body
+        className={`${ibmPlexMono.variable} ${notoSerifKR.variable} font-[Pretendard_Variable,Pretendard,-apple-system,BlinkMacSystemFont,sans-serif] antialiased`}
+      >
+        <div className="flex min-h-dvh">
+          <Sidebar />
+          <main className="flex flex-1 justify-center px-4 pt-16 pb-12 xl:pt-8">
+            <div className="w-full max-w-[720px]">{children}</div>
+          </main>
+          <aside className="hidden w-60 shrink-0 border-l border-line xl:block">
+            <div className="p-4 text-sm text-muted">목차</div>
+          </aside>
+        </div>
+      </body>
+    </html>
+  );
+}
