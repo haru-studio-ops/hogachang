@@ -38,6 +38,17 @@
 }
 
 @theme {
+  --animate-candle: candle-grow 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+
+  @keyframes candle-grow {
+    from {
+      transform: scaleY(0);
+    }
+    to {
+      transform: scaleY(1);
+    }
+  }
+
   --color-ink: var(--ink);
   --color-paper: var(--paper);
   --color-surface: var(--surface);
