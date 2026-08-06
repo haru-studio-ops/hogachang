@@ -5,6 +5,7 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import { CURRICULUM, getCurriculumLevel } from "@/lib/curriculum";
 import { getAllLessonIds, getLevelContent } from "@/lib/content";
 import { mdxComponents } from "@/components/mdx/mdxComponents";
+import { mdxRemoteOptions } from "@/lib/mdxOptions";
 import Checkpoint from "@/components/mdx/Checkpoint";
 
 type Props = {
@@ -57,7 +58,7 @@ export default async function LevelPage({ params }: Props) {
           <MDXRemote
             source={content.content}
             components={mdxComponents}
-            options={{ blockJS: false }}
+            options={mdxRemoteOptions}
           />
         </div>
       )}

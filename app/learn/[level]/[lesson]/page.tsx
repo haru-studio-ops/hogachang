@@ -10,6 +10,7 @@ import {
   getLessonsForLevel,
 } from "@/lib/content";
 import { mdxComponents } from "@/components/mdx/mdxComponents";
+import { mdxRemoteOptions } from "@/lib/mdxOptions";
 import Checkpoint from "@/components/mdx/Checkpoint";
 import LessonPanel from "@/components/lesson/LessonPanel";
 
@@ -74,7 +75,7 @@ export default async function LessonPage({ params }: Props) {
           <MDXRemote
             source={data.content}
             components={mdxComponents}
-            options={{ blockJS: false }}
+            options={mdxRemoteOptions}
           />
         </div>
 

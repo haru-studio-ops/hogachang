@@ -1,5 +1,7 @@
 import { describe, expect, it } from "vitest";
+import { serialize } from "next-mdx-remote/serialize";
 import { slugify } from "@/lib/slugify";
+import { mdxRemoteOptions } from "@/lib/mdxOptions";
 import {
   extractHeadings,
   getAllLessonIds,
@@ -28,6 +30,22 @@ describe("extractHeadings", () => {
       { text: "한 줄로", slug: "한-줄로" },
       { text: "개념", slug: "개념" },
     ]);
+  });
+});
+
+describe("CJK 인접 강조 (remark-cjk-friendly)", () => {
+  const source = "송나라의 **교자(交子)**다.";
+
+  it("닫는 ** 뒤에 한글이 바로 붙어도 strong으로 렌더링된다", async () => {
+    const { compiledSource } = await serialize(source, mdxRemoteOptions);
+    expect(compiledSource).toContain("strong");
+    expect(compiledSource).not.toContain("**");
+  });
+
+  it("플러그인이 없으면 별표가 그대로 남는다 (회귀 대조군)", async () => {
+    const { compiledSource } = await serialize(source, { blockJS: false });
+    expect(compiledSource).not.toContain("strong");
+    expect(compiledSource).toContain("**");
   });
 });
 
