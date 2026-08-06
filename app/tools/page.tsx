@@ -11,7 +11,7 @@ const TOOLS = [
 
 export default function ToolsPage() {
   return (
-    <div>
+    <div className="mx-auto w-full max-w-[720px]">
       <h1 className="text-3xl font-extrabold tracking-[-0.035em]">계산기</h1>
       <p className="mt-2 text-muted">배운 개념을 직접 숫자로 굴려보는 도구 모음.</p>
       <ul className="mt-6 space-y-2">

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { ibmPlexMono, notoSerifKR } from "./fonts";
 import Sidebar from "@/components/ui/Sidebar";
+import { CURRICULUM } from "@/lib/curriculum";
+import { getLessonsForLevel } from "@/lib/content";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -24,6 +26,15 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const levelTree = CURRICULUM.map((cur) => ({
+    level: cur.level,
+    title: cur.title,
+    lessons: getLessonsForLevel(cur.level).map((l) => ({
+      id: l.id,
+      title: l.title,
+    })),
+  }));
+
   return (
     <html lang="ko" suppressHydrationWarning>
       <head>
@@ -36,13 +47,10 @@ export default function RootLayout({
         className={`${ibmPlexMono.variable} ${notoSerifKR.variable} font-[Pretendard_Variable,Pretendard,-apple-system,BlinkMacSystemFont,sans-serif] antialiased`}
       >
         <div className="flex min-h-dvh">
-          <Sidebar />
-          <main className="flex flex-1 justify-center px-4 pt-16 pb-12 xl:pt-8">
-            <div className="w-full max-w-[720px]">{children}</div>
+          <Sidebar levelTree={levelTree} />
+          <main className="min-w-0 flex-1 px-4 pt-16 pb-12 xl:pt-8">
+            {children}
           </main>
-          <aside className="hidden w-60 shrink-0 border-l border-line xl:block">
-            <div className="p-4 text-sm text-muted">목차</div>
-          </aside>
         </div>
       </body>
     </html>

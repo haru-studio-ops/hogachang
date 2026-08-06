@@ -10,11 +10,19 @@ const NAV_ITEMS = [
   { href: "/review", label: "오답노트" },
   { href: "/glossary", label: "용어사전" },
   { href: "/tools", label: "계산기" },
-  { href: "/notes", label: "학습 노트" },
-  { href: "/stats", label: "통계" },
 ] as const;
 
-export default function Navigation() {
+export type NavLevel = {
+  level: number;
+  title: string;
+  lessons: { id: string; title: string }[];
+};
+
+type Props = {
+  levelTree: NavLevel[];
+};
+
+export default function Navigation({ levelTree }: Props) {
   const pathname = usePathname();
 
   return (
@@ -25,6 +33,7 @@ export default function Navigation() {
       >
         호가창
       </Link>
+
       {NAV_ITEMS.map(({ href, label }) => {
         const isActive =
           href === "/" ? pathname === "/" : pathname.startsWith(href);
@@ -40,6 +49,59 @@ export default function Navigation() {
           >
             {label}
           </Link>
+        );
+      })}
+
+      <p className="mt-6 mb-1 px-3 text-xs font-bold tracking-wide text-muted uppercase">
+        레벨
+      </p>
+      {levelTree.map(({ level, title, lessons }) => {
+        const levelHref = `/learn/${level}`;
+        const isLevelActive = pathname.startsWith(`${levelHref}/`) || pathname === levelHref;
+        const hasContent = lessons.length > 0;
+        return (
+          <div key={level}>
+            <Link
+              href={levelHref}
+              className={`flex items-baseline gap-2 rounded-md px-3 py-1.5 text-sm transition-colors ${
+                isLevelActive
+                  ? "bg-ink/10 font-medium text-ink"
+                  : hasContent
+                    ? "text-ink/80 hover:bg-ink/5 hover:text-ink"
+                    : "text-muted hover:bg-ink/5 hover:text-ink"
+              }`}
+            >
+              <span className="shrink-0 font-mono text-xs tabular-nums">
+                L{level}
+              </span>
+              <span className="truncate">{title}</span>
+            </Link>
+            {isLevelActive && hasContent && (
+              <ul className="mt-0.5 mb-1 border-l border-line pl-3 ml-4">
+                {lessons.map((lesson) => {
+                  const href = `/learn/${level}/${lesson.id}`;
+                  const active = pathname === href;
+                  return (
+                    <li key={lesson.id}>
+                      <Link
+                        href={href}
+                        className={`block rounded-md px-2 py-1 text-[13px] leading-snug transition-colors ${
+                          active
+                            ? "font-medium text-rise"
+                            : "text-muted hover:text-ink"
+                        }`}
+                      >
+                        <span className="mr-1.5 font-mono text-xs tabular-nums">
+                          {lesson.id}
+                        </span>
+                        {lesson.title}
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
+          </div>
         );
       })}
     </nav>

@@ -6,7 +6,7 @@ export default async function ExamPage({ params }: Props) {
   const { level } = await params;
 
   return (
-    <div>
+    <div className="mx-auto w-full max-w-[720px]">
       <h1 className="text-3xl font-extrabold tracking-[-0.035em]">
         Level {level} 졸업시험
       </h1>

@@ -1,9 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import Navigation from "./Navigation";
+import Navigation, { type NavLevel } from "./Navigation";
 
-export default function Sidebar() {
+type Props = {
+  levelTree: NavLevel[];
+};
+
+export default function Sidebar({ levelTree }: Props) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -60,7 +64,7 @@ export default function Sidebar() {
             </svg>
           </button>
         </div>
-        <Navigation />
+        <Navigation levelTree={levelTree} />
       </aside>
     </>
   );
