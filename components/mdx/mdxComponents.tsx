@@ -5,6 +5,7 @@ import Callout from "./Callout";
 import Formula from "./Formula";
 import Compare from "./Compare";
 import Checkpoint from "./Checkpoint";
+import TryIt from "./TryIt";
 
 function textOf(node: ReactNode): string {
   if (typeof node === "string" || typeof node === "number") return String(node);
@@ -21,6 +22,7 @@ export const mdxComponents = {
   Formula,
   Compare,
   Checkpoint,
+  TryIt,
   h2: ({ children, ...props }: ComponentPropsWithoutRef<"h2">) => (
     <h2
       id={slugify(textOf(children))}
