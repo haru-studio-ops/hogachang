@@ -1,5 +1,6 @@
-/** 레슨 퀴즈 문항 (프론트매터 `quiz` 항목) */
-export type QuizItem = {
+/** 객관식·O/X 문항 (O/X는 choices가 ["O", "X"]인 특수형) */
+export type ChoiceQuizItem = {
+  kind?: "choice";
   q: string;
   choices: string[];
   /** 정답 인덱스 (0-based) */
@@ -8,6 +9,23 @@ export type QuizItem = {
   /** true면 레슨 퀴즈에는 안 나오고 졸업시험에만 출제 */
   examOnly?: boolean;
 };
+
+/** 계산형 문항 (숫자 입력) */
+export type NumericQuizItem = {
+  kind: "numeric";
+  q: string;
+  /** 정답 숫자 */
+  answerValue: number;
+  /** 허용 오차 (기본 0) */
+  tolerance?: number;
+  /** 단위 표시 (예: "주", "%") */
+  unit?: string;
+  explain: string;
+  examOnly?: boolean;
+};
+
+/** 레슨 퀴즈 문항 (프론트매터 `quiz` 항목) */
+export type QuizItem = ChoiceQuizItem | NumericQuizItem;
 
 /** 레슨 MDX 프론트매터 (PROJECT_SPEC 4.2 고정 스키마) */
 export type LessonFrontmatter = {

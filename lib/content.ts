@@ -36,14 +36,25 @@ function parseQuiz(value: unknown, file: string): QuizItem[] {
     throw new Error(`${file}: 프론트매터 'quiz'가 없거나 배열이 아니다`);
   }
   return value.map((item, i) => {
-    if (
-      !isRecord(item) ||
-      typeof item.q !== "string" ||
-      !Array.isArray(item.choices) ||
-      typeof item.answer !== "number" ||
-      typeof item.explain !== "string"
-    ) {
-      throw new Error(`${file}: quiz[${i}] 형식이 잘못됐다 (q/choices/answer/explain 필수)`);
+    if (!isRecord(item) || typeof item.q !== "string" || typeof item.explain !== "string") {
+      throw new Error(`${file}: quiz[${i}] 형식이 잘못됐다 (q/explain 필수)`);
+    }
+    if (item.kind === "numeric") {
+      if (typeof item.answerValue !== "number") {
+        throw new Error(`${file}: quiz[${i}] 계산형 문항은 answerValue(숫자)가 필수다`);
+      }
+      return {
+        kind: "numeric" as const,
+        q: item.q,
+        answerValue: item.answerValue,
+        ...(typeof item.tolerance === "number" ? { tolerance: item.tolerance } : {}),
+        ...(typeof item.unit === "string" ? { unit: item.unit } : {}),
+        explain: item.explain,
+        ...(item.examOnly === true ? { examOnly: true } : {}),
+      };
+    }
+    if (!Array.isArray(item.choices) || typeof item.answer !== "number") {
+      throw new Error(`${file}: quiz[${i}] 객관식 문항은 choices/answer가 필수다`);
     }
     return {
       q: item.q,

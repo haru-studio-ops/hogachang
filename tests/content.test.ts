@@ -59,8 +59,10 @@ describe("Level 0 콘텐츠", () => {
       const quiz = lesson.quiz.filter((q) => !q.examOnly);
       expect(quiz.length).toBeGreaterThanOrEqual(3);
       for (const q of lesson.quiz) {
-        expect(q.answer).toBeGreaterThanOrEqual(0);
-        expect(q.answer).toBeLessThan(q.choices.length);
+        if (q.kind !== "numeric") {
+          expect(q.answer).toBeGreaterThanOrEqual(0);
+          expect(q.answer).toBeLessThan(q.choices.length);
+        }
         expect(q.explain.length).toBeGreaterThan(0);
       }
     }
