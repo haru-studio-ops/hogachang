@@ -109,7 +109,7 @@ type ProgressStore = {
 ## 현재 상태
 
 - [x] M0 뼈대 + AWS EC2 배포(pm2 3400) + hoga.allinground.com + HTTPS
-- [ ] M1 콘텐츠 파이프라인
+- [x] M1 콘텐츠 파이프라인
 - [ ] M2 진도 + 퀴즈 + 자기요약 + 백업 내보내기/불러오기
 - [ ] M3 대시보드 + 학습 캔들차트
 - [ ] M4 계산기 6종
