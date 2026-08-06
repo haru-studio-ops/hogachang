@@ -50,9 +50,12 @@ describe("CJK 인접 강조 (remark-cjk-friendly)", () => {
 });
 
 describe("Level 0 콘텐츠", () => {
-  it("샘플 레슨 3개가 존재하고 id 순서가 맞다", () => {
+  it("레슨 10개가 존재하고 id 순서가 맞다", () => {
     const lessons = getLessonsForLevel(0);
-    expect(lessons.map((l) => l.id)).toEqual(["0-1-1", "0-1-2", "0-1-3"]);
+    expect(lessons.map((l) => l.id)).toEqual([
+      "0-1-1", "0-1-2", "0-1-3", "0-1-4", "0-1-5",
+      "0-2-1", "0-2-2", "0-2-3", "0-2-4", "0-2-5",
+    ]);
   });
 
   it("모든 레슨은 6섹션 골격을 순서대로 지킨다", () => {
@@ -105,6 +108,8 @@ describe("Level 0 콘텐츠", () => {
   it("getAllLessonIds는 존재하는 레슨만 담는다", () => {
     const ids = getAllLessonIds();
     expect(ids.has("0-1-1")).toBe(true);
-    expect(ids.has("0-1-4")).toBe(false);
+    expect(ids.has("0-1-4")).toBe(true);
+    expect(ids.has("0-2-5")).toBe(true);
+    expect(ids.has("1-1-1")).toBe(false);
   });
 });
