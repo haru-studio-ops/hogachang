@@ -409,10 +409,13 @@ Level 0부터 순서대로 레슨 작성. **한 번에 한 모듈씩.**
 4. `www` → 루트 리다이렉트 설정
 
 ### 11.3 공개 사이트이므로 필수인 것
+> **[사용자 결정] 전체 비색인으로 변경됨.** `robots.ts`는 전체 Disallow, layout metadata에 noindex/nofollow 적용. sitemap.ts는 생성하지 않는다. OG 메타데이터는 유지하여 직접 링크 공유 시 미리보기는 정상 동작한다.
+
 - `app/layout.tsx`에 metadata: title, description, `openGraph`, `twitter`
 - `app/opengraph-image.tsx` — OG 이미지 (학습 캔들차트 모티프)
-- `sitemap.ts`, `robots.ts`
-- `/notes`, `/principles`, `/stats`는 **`robots.txt`에서 `Disallow`** — 개인 기록은 검색 노출 제외
+- `robots.ts` — 전체 `/` Disallow
+- favicon, apple-touch-icon
+- 404 / error 페이지
 - favicon, apple-touch-icon
 - 404 / error 페이지
 
