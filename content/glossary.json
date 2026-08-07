@@ -442,5 +442,29 @@
   "우선주": {
     "en": "Preferred Stock",
     "definition": "배당과 청산 시 잔여재산 분배에서 보통주보다 먼저 받지만 의결권이 없는 주식. 한국에서는 종목명 뒤에 '우'가 붙으며, 의결권 프리미엄만큼 보통주보다 할인 거래된다."
+  },
+  "KOSPI": {
+    "en": "Korea Composite Stock Price Index",
+    "definition": "한국의 대표 주식시장 지수. 1980년 1월 4일 시가총액을 100으로 놓고 현재 시가총액을 비교해 산출하며, 약 800개 상장 종목의 대형·전통 기업이 중심이다."
+  },
+  "KOSDAQ": {
+    "en": "Korea Securities Dealers Automated Quotations",
+    "definition": "1996년 개설된 한국의 기술·성장 기업 중심 주식시장. 기술 평가 특례 등 상장 요건이 KOSPI보다 완화돼 있으며, 바이오·IT 등 성장주 비중이 높다."
+  },
+  "시가총액가중지수": {
+    "en": "Market-Cap Weighted Index",
+    "definition": "구성 종목의 시가총액 합계를 기준 시점과 비교해 산출하는 지수. 시가총액이 큰 기업일수록 지수에 미치는 영향이 크다. KOSPI, S&P500, NASDAQ 종합지수가 대표적이다."
+  },
+  "동시호가": {
+    "en": "Call Auction / Opening/Closing Auction",
+    "definition": "일정 시간 주문을 모아 거래량이 최대가 되는 하나의 가격으로 동시에 체결하는 방식. 한국 주식시장에서 개장(08:30~09:00)과 마감(15:20~15:30)에 진행된다."
+  },
+  "서킷브레이커": {
+    "en": "Circuit Breaker",
+    "definition": "주가지수가 급락할 때 시장 전체의 거래를 일시 정지시키는 안전장치. 한국은 8%/15%/20% 세 단계, 미국은 S&P500 기준 7%/13%/20% 세 단계로 작동한다."
+  },
+  "VI": {
+    "en": "Volatility Interruption",
+    "definition": "변동성 완화장치. 개별 종목의 가격이 직전 체결가 대비 일정 폭 이상 급변하면 해당 종목만 2분간 단일가 매매로 전환해 냉각시키는 장치다."
   }
 }
