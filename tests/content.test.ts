@@ -9,6 +9,7 @@ import {
   getLessonsForLevel,
   getLevelContent,
 } from "@/lib/content";
+import { CURRICULUM } from "@/lib/curriculum";
 import glossary from "@/content/glossary.json";
 import type { GlossaryEntry } from "@/types/content";
 
@@ -116,5 +117,31 @@ describe("Level 0 콘텐츠", () => {
     expect(ids.has("2-1-1")).toBe(true);
     expect(ids.has("4-1-1")).toBe(true);
     expect(ids.has("99-1-1")).toBe(false);
+  });
+});
+
+describe("CURRICULUM ↔ MDX 파일 일치 검증", () => {
+  const existingIds = getAllLessonIds();
+
+  it("모든 레벨에서 CURRICULUM의 레슨 ID가 실제 MDX 파일과 100% 일치한다", () => {
+    for (const cur of CURRICULUM) {
+      const curIds = cur.modules.flatMap((m) => m.lessons.map((l) => l.id));
+      const fileIds = getLessonsForLevel(cur.level).map((l) => l.id);
+      const missing = curIds.filter((id) => !fileIds.includes(id));
+      const extra = fileIds.filter((id) => !curIds.includes(id));
+      expect(missing, `Level ${cur.level}: CURRICULUM에는 있지만 MDX 없음: ${missing.join(", ")}`).toEqual([]);
+      expect(extra, `Level ${cur.level}: MDX에는 있지만 CURRICULUM 없음: ${extra.join(", ")}`).toEqual([]);
+    }
+  });
+
+  it("커리큘럼 페이지에서 모든 레슨이 공개 상태로 표시된다", () => {
+    for (const cur of CURRICULUM) {
+      const lessonCount = cur.modules.reduce((s, m) => s + m.lessons.length, 0);
+      const doneCount = cur.modules.reduce(
+        (s, m) => s + m.lessons.filter((l) => existingIds.has(l.id)).length,
+        0,
+      );
+      expect(doneCount, `Level ${cur.level}: ${doneCount}/${lessonCount} 공개`).toBe(lessonCount);
+    }
   });
 });
