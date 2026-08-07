@@ -113,6 +113,7 @@ describe("Level 0 콘텐츠", () => {
     expect(ids.has("0-1-4")).toBe(true);
     expect(ids.has("0-2-5")).toBe(true);
     expect(ids.has("1-1-1")).toBe(true);
-    expect(ids.has("2-1-1")).toBe(false);
+    expect(ids.has("2-1-1")).toBe(true);
+    expect(ids.has("4-1-1")).toBe(false);
   });
 });
